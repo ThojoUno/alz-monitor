@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "parPolicyPseudoRootMgmtGroup": {
-            "value": "alz"
+            "value": "GCRTA"
         },
         "parPolicyAssignmentParameters": {
             "value": {
@@ -12,18 +12,19 @@
                 },
                 "ALZMonitorResourceGroupTags": {
                     "value": {
-                        "Project": "alz-monitor"
+                        "Project": "alz-monitor",
+                        "DeployedBy": "Lunavi"
                     }
                 },
                 "ALZMonitorResourceGroupLocation": {
-                    "value": "eastus"
+                    "value": "northcentralus"
                 }
             }
         },
         "parPolicyAssignmentParametersServiceHealth": {
             "value": {
                 "ALZMonitorActionGroupEmail": {
-                    "value": "blank@somewhere.com"
+                    "value": "jthompson@lunavi.com"
                 },
                 "ResHlthUnhealthyAlertState": {
                     "value": "true"

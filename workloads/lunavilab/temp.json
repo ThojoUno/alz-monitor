@@ -1,0 +1,41 @@
+{
+    "id": "/subscriptions/82b3f9ea-b1b1-419f-b7c6-6f09c0652088/resourceGroups/rg-centralus-mgmt-prtc-hub/providers/microsoft.insights/scheduledqueryrules/Operational issues - log-centralus-prtc-hub",
+    "name": "Operational issues - log-centralus-prtc-hub",
+    "type": "microsoft.insights/scheduledqueryrules",
+    "location": "centralus",
+    "tags": {},
+    "systemData": {},
+    "properties": {
+        "createdWithApiVersion": "2023-03-15-preview",
+        "displayName": "Operational issues - log-centralus-prtc-hub",
+        "description": "",
+        "severity": 3,
+        "enabled": true,
+        "evaluationFrequency": "P1D",
+        "scopes": [
+            "/subscriptions/82b3f9ea-b1b1-419f-b7c6-6f09c0652088/resourceGroups/rg-centralus-mgmt-prtc-hub/providers/Microsoft.OperationalInsights/workspaces/log-centralus-prtc-hub"
+        ],
+        "windowSize": "P1D",
+        "criteria": {
+            "allOf": [
+                {
+                    "query": "_LogOperation | where Level == \"Warning\"",
+                    "timeAggregation": "Count",
+                    "metricMeasureColumn": "",
+                    "resourceIdColumn": "_ResourceId",
+                    "operator": "GreaterThan",
+                    "threshold": 0,
+                    "failingPeriods": {
+                        "numberOfEvaluationPeriods": 1,
+                        "minFailingPeriodsToAlert": 1
+                    }
+                }
+            ]
+        },
+        "autoMitigate": false,
+        "actions": {
+            "actionGroups": [],
+            "customProperties": {}
+        }
+    }
+}

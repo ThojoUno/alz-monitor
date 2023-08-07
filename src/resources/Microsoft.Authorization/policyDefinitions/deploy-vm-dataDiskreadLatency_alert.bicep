@@ -70,30 +70,26 @@ param parThreshold string = '30'
 
 param parEvaluationPeriods string = '1'
 
-param parFailingPeriods string  = '1'
+param parFailingPeriods string = '1'
 
 @allowed([
-  'Average'
-  'Count'
-  'Maximum'
-  'Minimum'
-  'Total'
+    'Average'
+    'Count'
+    'Maximum'
+    'Minimum'
+    'Total'
 ])
-
-
 
 param parTimeAggregation string = 'Average'
 
 param parComputersToInclude array = [
     '*'
-     
-]
 
+]
 
 param parDisksToInclude array = [
-   '*'
+    '*'
 ]
-
 
 //param parMonitorDisable string = 'MonitorDisable' 
 
@@ -102,15 +98,15 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
     params: {
         name: 'Deploy_VM_dataDiskReadLatency_Alert'
         displayName: 'Deploy VM Data Disk Read Latency Alert'
-         description: 'Policy to audit/deploy VM dataDiskReadLatency Alert'
+        description: 'Policy to audit/deploy VM dataDiskReadLatency Alert'
         location: policyLocation
         metadata: {
             version: '1.0.0'
             category: 'Compute'
-            source: 'https://github.com/Azure/Enterprise-Scale/' 
-            alzCloudEnvironments: [ 
-               'AzureCloud'
-              ]
+            source: 'https://github.com/Azure/Enterprise-Scale/'
+            alzCloudEnvironments: [
+                'AzureCloud'
+            ]
         }
         parameters: {
             alertResourceGroupName: {
@@ -154,35 +150,34 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
             }
             operator: {
                 type: 'String'
-                metadata:{ displayName: 'Operator'}
-                allowedvalues:[
-                'Equals'
-                'GreaterThan'
-                'GreaterThanOrEqual'
-                'LessThan'
-                'LessThanOrEqual'
-            ]
-            defaultvalue: parOperator
-        }
-        timeAggregation:{
-            type:'String'
-            metadata: {
-              displayName: 'TimeAggregation'
-          }
-          allowedValues:[
-            'Average'
-            'Count'
-            'Maximum'
-            'Minimum'
-            'Total'
+                metadata: { displayName: 'Operator' }
+                allowedvalues: [
+                    'Equals'
+                    'GreaterThan'
+                    'GreaterThanOrEqual'
+                    'LessThan'
+                    'LessThanOrEqual'
+                ]
+                defaultvalue: parOperator
+            }
+            timeAggregation: {
+                type: 'String'
+                metadata: {
+                    displayName: 'TimeAggregation'
+                }
+                allowedValues: [
+                    'Average'
+                    'Count'
+                    'Maximum'
+                    'Minimum'
+                    'Total'
 
-          ]
+                ]
 
-          defaultvalue: parTimeAggregation
+                defaultvalue: parTimeAggregation
 
-        }
+            }
 
-         
             windowSize: {
                 type: 'String'
                 metadata: {
@@ -190,7 +185,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                     description: 'Window size for the alert'
                 }
                 allowedValues: [
-                    
+
                     'PT5M'
                     'PT15M'
                     'PT30M'
@@ -246,7 +241,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                     displayName: 'Auto Resolve'
                     description: 'Auto Resolve time for the alert in ISO 8601 format'
                 }
-           
+
                 defaultValue: parautoResolveTime
             }
             enabled: {
@@ -261,7 +256,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                 ]
                 defaultValue: parAlertState
             }
-     
+
             threshold: {
                 type: 'String'
                 metadata: {
@@ -273,7 +268,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
 
             failingPeriods: {
                 type: 'String'
-                metadata:{
+                metadata: {
                     disaplayname: 'Failing Periods'
                     description: 'Number of failing periods before alert is fired'
                 }
@@ -281,32 +276,32 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
             }
             evaluationPeriods: {
                 type: 'String'
-                metadata:{
+                metadata: {
                     displayname: 'Evaluation Periods'
                     description: 'The number of aggregated lookback points.'
                 }
                 defaultValue: parEvaluationPeriods
             }
-            computersToInclude:{
+            computersToInclude: {
                 type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
+                metadata: {
+                    displayname: 'Disks to be included to be monitored'
                     description: 'Array of Computer to be monitored'
                 }
 
                 defaultValue: parComputersToInclude
 
-            } 
-            disksToInclude:{
+            }
+            disksToInclude: {
                 type: 'array'
-                metadata:{
-                    displayname:'Disks to be included to be monitored'
+                metadata: {
+                    displayname: 'Disks to be included to be monitored'
                     description: 'Array of disk to be monitored for disk both windows and linux'
                 }
 
                 defaultValue: parDisksToInclude
 
-            } 
+            }
 
             effect: {
                 type: 'String'
@@ -320,7 +315,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                 ]
                 defaultValue: parPolicyEffect
             }
-        
+
         }
         policyRule: {
             if: {
@@ -330,7 +325,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                         equals: 'Microsoft.Compute/virtualMachines'
                     }
 
-                   ]
+                ]
             }
             then: {
                 effect: '[parameters(\'effect\')]'
@@ -342,7 +337,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                     deploymentScope: 'subscription'
                     existenceCondition: {
                         allOf: [
-               
+
                             {
                                 field: 'Microsoft.Insights/scheduledQueryRules/displayName'
                                 equals: '[concat(subscription().displayName, \'-VMLowdataDiskReadLatencyAlert\')]'
@@ -358,15 +353,15 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                         ]
                     }
                     deployment: {
-                        location:policyLocation
+                        location: policyLocation
                         properties: {
                             mode: 'incremental'
-                               template: {
+                            template: {
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
 
-                                   policyLocation: {
+                                    policyLocation: {
                                         type: 'string'
                                         defaultValue: policyLocation
                                     }
@@ -380,7 +375,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                     alertResourceGroupLocation: {
                                         type: 'string'
                                     }
-                                
+
                                     severity: {
                                         type: 'String'
                                     }
@@ -406,30 +401,29 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                         type: 'String'
                                     }
                                     operator: {
-                                        type:'String'
+                                        type: 'String'
 
                                     }
                                     timeAggregation: {
-                                        type:'String'
+                                        type: 'String'
 
                                     }
                                     failingPeriods: {
-                                        type:'String'
+                                        type: 'String'
 
                                     }
                                     evaluationPeriods: {
-                                        type:'String'
+                                        type: 'String'
 
                                     }
                                     disksToInclude: {
-                                        type:'array'
+                                        type: 'array'
 
                                     }
                                     computersToInclude: {
-                                        type:'array'
+                                        type: 'array'
 
                                     }
-
 
                                 }
                                 variables: {}
@@ -461,8 +455,8 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                                     alertResourceGroupName: {
                                                         type: 'string'
                                                     }
-                                                    alertResourceGroupLocation:{
-                                                        type:'string'
+                                                    alertResourceGroupLocation: {
+                                                        type: 'string'
                                                     }
                                                 }
                                                 variables: {}
@@ -494,35 +488,34 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                                                         operator: '[parameters(\'operator\')]'
                                                                         resourceIdColumn: '_ResourceId'
                                                                         timeAggregation: '[parameters(\'timeAggregation\')]'
-                                                                        dimensions:[
+                                                                        dimensions: [
                                                                             {
                                                                                 name: 'Computer'
                                                                                 operator: 'Include'
                                                                                 values: '[parameters(\'computersToInclude\')]'
-                                                                            }    
-                                                                            
+                                                                            }
+
                                                                             {
                                                                                 name: 'Disk'
                                                                                 operator: 'Include'
                                                                                 values: '[parameters(\'disksToInclude\')]'
-                                                                            }  
-                                                                            
-                
+                                                                            }
+
                                                                         ]
-                                                                        failingPeriods:{
+                                                                        failingPeriods: {
                                                                             numberOfEvaluationPeriods: '[parameters(\'evaluationPeriods\')]'
                                                                             minFailingPeriodsToAlert: '[parameters(\'failingPeriods\')]'
                                                                         }
                                                                     }
                                                                 ]
-                                                             
+
                                                             }
                                                             autoMitigate: '[parameters(\'autoMitigate\')]'
                                                             ruleResolveConfiguration: {
                                                                 autoResolved: '[parameters(\'autoResolve\')]'
                                                                 timeToResolve: '[parameters(\'autoResolveTime\')]'
-                                                              }
-                                                          
+                                                            }
+
                                                             parameters: {
 
                                                                 alertResourceGroupName: {
@@ -557,17 +550,17 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                                                 }
                                                                 failingPeriods: {
                                                                     value: '[parameters(\'failingPeriods\')]'
-                                                                               }
+                                                                }
                                                                 evaluationPeriods: {
-                                                                    value:'[parameters(\'evaluationPeriods\')]'                            
+                                                                    value: '[parameters(\'evaluationPeriods\')]'
                                                                 }
                                                                 disksToInclude: {
-                                                                    value:'[parameters(\'disksToInclude\')]'                            
+                                                                    value: '[parameters(\'disksToInclude\')]'
                                                                 }
                                                                 computersToInclude: {
-                                                                    value:'[parameters(\'computersToInclude\')]'                            
+                                                                    value: '[parameters(\'computersToInclude\')]'
                                                                 }
-                                                         
+
                                                             }
                                                         }
                                                     }
@@ -587,7 +580,7 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                             }
                                         }
                                     }
-                                
+
                                 ]
                             }
                             parameters: {
@@ -611,8 +604,8 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                 }
                                 autoMitigate: {
                                     value: '[parameters(\'autoMitigate\')]'
-                                  }
-                              autoResolve: {
+                                }
+                                autoResolve: {
                                     value: '[parameters(\'autoResolve\')]'
                                 }
                                 autoResolveTime: {
@@ -640,12 +633,11 @@ module VMdataDiskReadLatencyAlert '../../arm/Microsoft.Authorization/policyDefin
                                 disksToInclude: {
                                     value: '[parameters(\'disksToInclude\')]'
 
-                                }   
+                                }
                                 computersToInclude: {
                                     value: '[parameters(\'computersToInclude\')]'
 
                                 }
-
 
                             }
                         }

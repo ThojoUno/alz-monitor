@@ -12,18 +12,22 @@
                 },
                 "ALZMonitorResourceGroupTags": {
                     "value": {
-                        "Project": "alz-monitor"
+                        "Project": "alz-monitor",
+                        "Expiry Date": "8/1/2023",
+                        "Business Unit": "Cloud Enablement",
+                        "Owner": "Joe Thompson",
+                        "Environment": "Lab"
                     }
                 },
                 "ALZMonitorResourceGroupLocation": {
-                    "value": "eastus"
+                    "value": "westus2"
                 }
             }
         },
         "parPolicyAssignmentParametersServiceHealth": {
             "value": {
                 "ALZMonitorActionGroupEmail": {
-                    "value": "blank@somewhere.com"
+                    "value": "support@lunavi.com"
                 },
                 "ResHlthUnhealthyAlertState": {
                     "value": "true"
